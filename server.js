@@ -33,9 +33,12 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log('====================================================');
-  console.log(' ApexCart Enterprise Portal running at:');
-  console.log(` http://localhost:${PORT}`);
-  console.log('====================================================');
-});
+// Only listen on PORT during local development
+if (process.env.NODE_ENV !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`ApexCart running locally at http://localhost:${PORT}`);
+  });
+}
+
+// Export app for Vercel serverless deployment
+module.exports = app;
