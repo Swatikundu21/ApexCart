@@ -3,9 +3,9 @@ const cors = require('cors');
 const path = require('path');
 require('./db');
 
-const authController = require('./src/controllers/authController');
-const productsController = require('./src/controllers/productsController');
-const ordersController = require('./src/controllers/ordersController');
+const authController = require('./authController');
+const productsController = require('./productsController');
+const ordersController = require('./ordersController');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
