@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ApexCart Enterprise Portal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand" onclick="showStore()" style="cursor:pointer">
+      <div class="logo"></div>
+      ApexCart
+    </div>
+    <input id="search" class="search" placeholder="Search products, categories, SKUs...">
+    <div class="nav-actions">
+      <button class="ghost hidden" id="adminBtn" onclick="showAdmin()">Admin</button>
+      <button class="ghost" onclick="showOrders()">Orders</button>
+      <button class="ghost" id="authBtn" onclick="openAuth(true, 'login')">Account</button>
+      <button class="ghost hidden" id="logoutBtn" onclick="logout()">Logout</button>
+      <button class="btn" onclick="openDrawer(true)">Cart <span class="badge" id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section id="storeView">
+      <div class="hero">
+        <div>
+          <div class="kicker">Enterprise storefront</div>
+          <h1>Precision hardware for teams that ship.</h1>
+          <p class="muted">Live warehouse stock, JWT checkout, and simulated ERP telemetry on every order.</p>
+        </div>
+        <div>
+          <p class="muted">Demo logins</p>
+          <p><strong>admin@apexcart.com</strong> / admin123</p>
+          <p><strong>alex@example.com</strong> / user123</p>
+        </div>
+      </div>
+      <div class="filters" id="filters"></div>
+      <div class="grid" id="productGrid"></div>
+    </section>
+
+    <section id="ordersView" class="hidden">
+      <h2>Account hub</h2>
+      <p class="muted">Self-service tracking and digital order history.</p>
+      <table>
+        <thead><tr><th>Order</th><th>Status</th><th>Total</th><th>Tracking</th></tr></thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+    </section>
+
+    <section id="adminView" class="hidden">
+      <h2>Merchant admin</h2>
+      <div class="kpi">
+        <div><div class="muted small">Revenue</div><div id="kpiRevenue">$0</div></div>
+        <div><div class="muted small">Orders processed</div><div id="kpiOrders">0</div></div>
+        <div><div class="muted small">Stock alerts</div><div id="kpiAlerts">0</div></div>
+      </div>
+      <h3>Recent transactions</h3>
+      <table>
+        <thead><tr><th>Order ID</th><th>Customer</th><th>Status</th><th>Total</th></tr></thead>
+        <tbody id="adminOrders"></tbody>
+      </table>
+      <h3>Inventory control</h3>
+      <table>
+        <thead><tr><th>Product</th><th>On hand</th><th>Safety stock</th><th>Update</th></tr></thead>
+        <tbody id="adminStock"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <div class="drawer" id="cartDrawer" onclick="if(event.target===this)openDrawer(false)">
+    <aside class="panel">
+      <div class="row"><h2>Cart</h2><button class="ghost" onclick="openDrawer(false)">Close</button></div>
+      <div id="cartItems"></div>
+      <div class="row"><strong>Total</strong><strong id="cartTotal">$0.00</strong></div>
+      <button class="btn" style="width:100%;margin-top:16px" onclick="checkout()">Checkout</button>
+    </aside>
+  </div>
+
+  <div class="modal-bg" id="authModal" onclick="if(event.target===this)openAuth(false)">
+    <form class="modal" onsubmit="submitAuth(event)">
+      <h2 id="authTitle">Sign in</h2>
+      <input class="field hidden" id="authName" placeholder="Full name">
+      <input class="field" id="authEmail" type="email" placeholder="Email" required>
+      <input class="field" id="authPassword" type="password" placeholder="Password" required>
+      <button class="btn" id="authSubmit" data-mode="login" style="width:100%">Continue</button>
+      <p class="small muted">Need an account? <a href="#" onclick="event.preventDefault();openAuth(true,'register')">Register</a></p>
+    </form>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
