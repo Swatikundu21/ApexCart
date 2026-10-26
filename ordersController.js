@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('./db');
 
 exports.createOrder = (req, res) => {
   const { items, total_amount } = req.body;
