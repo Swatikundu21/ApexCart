@@ -1,4 +1,4 @@
-const db = require('../config/db');
+const db = require('./db');
 
 exports.getAllProducts = (req, res) => {
   db.all('SELECT * FROM products ORDER BY name ASC', [], (err, rows) => {
