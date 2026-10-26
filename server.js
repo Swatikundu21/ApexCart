@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-require('./src/config/db');
+require('./db');
 
 const authController = require('./src/controllers/authController');
 const productsController = require('./src/controllers/productsController');
